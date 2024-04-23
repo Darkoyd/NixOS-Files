@@ -7,12 +7,12 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
     ];
   boot.supportedFilesystems = ["ntfs"];
   # Bootloader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/sdb";
+  boot.loader.grub.device = "nodev";
   boot.loader.grub.useOSProber = true;
   boot.loader.grub.theme = pkgs.stdenv.mkDerivation {
     pname = "minegrub-theme";
@@ -124,35 +124,45 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-     	opera
-	spotify-player
+  # Utils
+  opera
+	spotify-tui
+	insomnia
+	libreoffice-qt
+	gimp
+	vscode
+
+
+  # File management
+	ntfs3g
+	woeusb
+	glpk
+	ipopt
+	neofetch
+	gparted
+	fwup
+	etcher
+
+  # Langs
 	nodejs_21
 	texliveFull
 	git
-	ntfs3g
-	insomnia
 	rustup
 	gcc
 	elixir_1_16
 	erlang_26
 	androidStudioPackages.dev
+	jdk17
+	gleam
 	python3
+
+  # Audio
 	qjackctl
 	sonic-pi
 	pulseaudioFull
-	woeusb
-	libreoffice-qt
-	glpk
-	ipopt
-	neofetch
-	gimp
-	jdk17
-	vscode
-	gleam
-	gparted
-	fwup
-	etcher
-	avahi
+	
+  # Networking
+  avahi
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
@@ -173,17 +183,17 @@
 
   # Enable the OpenSSH daemon.
    services.openssh.enable = true;
-#   services.avahi = {
-#     nssmdns = true;
-#     enable = true;
-#     ipv4 = true;
-#     ipv6 = true;
-#     publish = {
-#	enable = true;
-#	addresses = true;
-#	workstation = true;
-  #   };
-  # };
+   services.avahi = {
+     nssmdns = true;
+     enable = true;
+     ipv4 = true;
+     ipv6 = true;
+     publish = {
+	enable = true;
+	addresses = true;
+	workstation = true;
+     };
+   };
   # Open ports in the firewall.
    networking.firewall.allowedTCPPorts = [ 22 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
