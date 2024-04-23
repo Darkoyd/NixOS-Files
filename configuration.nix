@@ -135,7 +135,7 @@
 	gcc
 	elixir_1_16
 	erlang_26
-	android-studio
+	androidStudioPackages.dev
 	python3
 	qjackctl
 	sonic-pi
